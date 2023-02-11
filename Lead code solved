@@ -1,3 +1,444 @@
+#container with most water
+
+height = [1,8,6,2,5,4,8,3,7]
+
+
+containers=[]
+
+n=1
+for i in range(0,len(height)-1):
+    for j in range(n,len(height)):
+        length=j-i
+        breadth=min(height[i],height[j])
+        area=length*breadth
+        containers.append(area)
+    n=n+1
+    
+print(containers)
+print(max(containers))
+    
+#longest palindromic substring
+
+import math
+
+s = "babbab"
+pals=[]
+
+n=1
+for i in range(0,len(s)-1):
+    
+    
+    for j in range(n,len(s)+1):
+        substring=s[i:j]
+        
+        
+        length=math.floor(len(substring)/2)
+        m=-1
+        flag=0
+         
+
+        for x in range(0,length):
+            if substring[x]==substring[m]:
+                flag=1
+                m=m-1
+            else:
+                flag=0
+                break
+        if flag==1:
+            pals.append(len(substring))
+        
+        
+        
+    n=n+1
+    
+        
+print(max(pals))
+
+
+
+#remove nth node from end of list
+
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+        
+head=Node(1)
+n2=Node(2)
+head.next=n2
+n3=Node(3)
+n2.next=n3
+n4=Node(4)
+n3.next=n4
+n5=Node(5)
+n4.next=n5
+
+current=head
+count=0
+while current!=None:
+    
+    count=count+1
+    current=current.next
+    
+
+    
+n=2
+
+N=count-2
+
+
+
+count=0
+current=head
+while current!=None:
+    count=count+1
+    if count==N:
+        temp=current.next.next
+        current.next.next=None
+        current.next=temp
+    
+    current=current.next
+
+    
+current=head    
+while current!=None:
+    print(current.data)
+    
+    current=current.next
+    
+    
+#validate binary search treee
+
+class Node:
+    def __init__(self,data):
+        self.left=None
+        self.right=None
+        self.data=data
+        
+root=Node(20)
+temp=Node(25)
+root.left=temp
+temp=Node(10)
+root.right=temp
+temp=Node(28)
+root.left.left=temp
+temp=Node(23)
+root.left.right=temp
+temp=Node(6)
+root.right.right=temp
+temp=Node(15)
+root.right.left=temp
+
+
+
+
+
+flag=0
+
+def validate(node):
+    global flag
+    if node.left!=None:
+        
+        #a=node.data
+        #l=node.left.data
+        #r=node.right.data
+        if node.left.data<node.data or node.right.data>node.data:
+            flag=1
+            return
+            
+        
+        validate(node.left)
+        validate(node.right)
+        
+        
+validate(root)
+        
+
+if flag==1:
+    print("not valid")
+else:
+    print("valid")
+
+
+
+
+#VALID PALINDROME
+import math
+
+s = "A man, a plan, a canal: Panama"
+
+
+
+s=s.replace(" ","")
+s=s.replace(":","")
+s=s.replace(",","")
+
+s=s.lower()
+
+n=0
+
+flag=1
+
+for i in range(0,math.floor(len(s)/2)):
+    if s[i]!=s[-1-n]:
+        flag=0
+        break
+    n=n+1
+    
+
+if flag==1:
+    print("palindrom")
+else:
+    print("not palindrome")
+
+
+# ALL PATHS FROM ROOT TO NODE
+
+class Node:
+    def __init__(self,data):
+        self.left=None
+        self.right=None
+        self.data=data
+        
+root=Node(20)
+temp=Node(25)
+root.left=temp
+temp=Node(10)
+root.right=temp
+temp=Node(28)
+root.left.left=temp
+temp=Node(30)
+root.left.left.left=temp
+temp=Node(22)
+root.left.left.right=temp
+temp=Node(23)
+root.left.right=temp
+temp=Node(6)
+root.right.right=temp
+temp=Node(15)
+root.right.left=temp
+
+
+stack=[]
+
+def paths(node):
+    #print(node.data)
+    stack.append(node.data)
+    if (node.left!=None) and (node.right!=None):
+        
+        
+        paths(node.left)
+        paths(node.right)
+        stack.pop(-1)
+        
+        
+    else:
+        print(stack)
+        stack.pop(-1)
+        
+        
+        
+paths(root)
+
+
+
+# MAXIMUM PRODUCT SUBARRAY
+
+import numpy
+
+nums = [2,3,-2,4,1,7]
+
+
+n=1
+p=0
+
+for i in range(0,len(nums)-1):
+    subarray=[]
+    subarray.append(nums[i])
+    for j in range(n,len(nums)):
+        subarray.append(nums[j])
+        product=numpy.prod(subarray)
+        #print(product)
+        if product>p:
+            p=product       
+    n=n+1
+    
+      
+print("max product is :",p)        
+        
+    
+
+#HOUSE ROBBER 2
+
+nums = [2,7,9,3,1]
+
+length=len(nums)
+
+if length%2==0:
+    x="even"
+else:
+    x="odd"
+    
+
+combinations=[]
+
+n=2  # number of house combinations
+
+if x=="even":
+    for i in range(0,n):
+        loot=0                          #can put if even odd condition here too to reduce code
+        for j in range(i,len(nums),2):
+            loot=loot+nums[j]
+        combinations.append(loot)
+    
+    print(max(combinations))
+    
+if x=="odd":
+    for i in range(0,n):
+        loot=0
+        for j in range(i,len(nums)-1,2):
+            loot=loot+nums[j]
+        combinations.append(loot)
+    
+    print(max(combinations))
+
+
+#KTH SMALLEST ELEMENT IN BST
+
+k=3
+
+class Node:
+    def __init__(self,data):
+        self.left=None
+        self.right=None
+        self.data=data
+        
+root=Node(20)
+temp=Node(10)
+root.left=temp
+temp=Node(30)
+root.right=temp
+temp=Node(5)
+root.left.left=temp
+temp=Node(15)
+root.left.right=temp
+temp=Node(1)
+root.left.left.left=temp
+
+
+n=0
+
+def traverse(node):                      #using the help of inorder travsersal
+    global n
+    
+    if node:
+        traverse(node.left)
+        
+        n=n+1
+        if n==k:
+            print(node.data)
+            
+        traverse(node.right)
+        
+traverse(root)
+        
+        
+
+
+# LOWEST COMMON ANCESTER IN BINARY SEARCH TREE
+
+
+class Node:
+    def __init__(self,data):
+        self.left=None
+        self.right=None
+        self.data=data
+        
+root=Node(20)
+temp=Node(10)
+root.left=temp
+temp=Node(30)
+root.right=temp
+temp=Node(5)
+root.left.left=temp
+temp=Node(15)
+root.left.right=temp
+temp=Node(1)
+root.left.left.left=temp
+
+p=5
+q=15
+
+p_list=[]
+q_list=[]
+
+def path(node):
+    
+    if node:
+        #print(node.data)
+        p_list.append(node.data)
+        if node.data==p:
+            return
+        else:
+            if p<node.data:
+                path(node.left)
+            else:
+                path(node.right)
+                
+def path1(node):
+    
+    if node:
+        #print(node.data)
+        q_list.append(node.data)
+        if node.data==q:
+            return
+        else:
+            if q<node.data:
+                path1(node.left)
+            else:
+                path1(node.right)
+        
+        
+            
+path(root) 
+path1(root)
+
+print(p_list)
+print(q_list)
+
+flag=0
+
+for i in range(len(p_list)-1,-1,-1):
+    for j in range(len(q_list)-1,-1,-1):
+               if p_list[i]==q_list[j]:
+                print("lowest commmon ancester is",p_list[i])
+                flag=1
+                break
+    if flag==1:
+        break
+               
+
+
+#VALID ANAGRAM
+
+s = "anagram"
+t = "nagaram"
+
+temp=s
+
+for i in t:
+    if i in temp:
+        temp=temp.replace(i,"",1)
+        
+if temp=='' :
+    print("yes")
+else:
+    print("no")
+        
+ 
+ 
+ 
+ 
 # 3 longest substring without repeating characters
 
 s="pwwkew"
@@ -497,4 +938,308 @@ def traverse(node,low,high):
     
 traverse(root,7,15)
 print(sum) 
+
+
+# Evaluate boolean binary tree
+
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.left=None
+        self.right=None
+        
+
+root=Node(2)
+temp=Node(1)
+root.left=temp
+temp=Node(3)
+root.right=temp
+temp=Node(1)
+root.right.right=temp
+temp=Node(0)
+root.right.left=temp
+
+def traverse(node):
+    if node:
+        traverse(node.left)
+    
+        
+        traverse(node.right)
+        print(node.data)
+    
+traverse(root)
+    
+    
+#level order traversal
+
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.left=None
+        self.right=None
+        
+#create the trees
+        
+root=Node(7)
+temp=Node(4)
+root.left=temp
+target=Node(3)
+root.right=target
+temp=Node(6)
+root.right.left=temp
+temp=Node(19)
+root.right.right=temp
+temp=Node(7)
+root.left.right=temp
+temp=Node(9)
+root.left.left=temp
+
+stack=[]
+nodes=[]
+n=-1
+
+nodes.append(root.data)
+
+def level(node):
+    global n
+    if node.left!=None:
+        nodes.append(node.left.data)
+        stack.append(node.left)
+    
+        nodes.append(node.right.data)
+        stack.append(node.right)
+    
+    n=n+1
+    if n<len(nodes)-1:
+        level(stack[n])
+        
+level(root)
+    
+    
+print(nodes)   
+
+
+
+#find if a path exists in a graph using help of DFS
+
+edges=[[0,1],[0,2],[2,5],[1,3],[3,4],[3,6]]
+
+source = 0
+
+destination = 5
+
+
+node=source
+
+
+visited=[]
+
+
+
+
+def DFS(node):
+    global flag
+    
+    if node not in visited: #and node!=destination:
+        visited.append(node)
+        print(node)
+        
+        for x in edges:
+            if x[0]==node:
+                node1=x[1]
+                if node1==destination:
+                    flag=1
+                                        
+                DFS(node1)
+    
+            
+    
+DFS(source)             
+
+if flag==1:
+    print("there is a path")
+    
+    
+    
+ #all paths from source to target
+
+graph = [[1,2],[3],[3],[]]
+graph = {0:[4,3,1],1:[3,2,4],2:[3],3:[4],4:[]}
+
+
+start=0
+dest=4
+
+
+def paths(start,dest):
+    
+    print(start)
+    for x in graph[start]:
+        paths(x,dest)
+        
+        
+paths(start,dest)        
+
+
+#ROOMS AND KEYS
+
+rooms = [[1,3],[3,0,1],[2],[0]]
+
+room_numbers=list(range(0,len(rooms)))
+
+start=0
+visited=[]
+
+def DFS(node):
+    if node not in visited: 
+        visited.append(node)
+        print(node)
+        for x in rooms[node]:
+            DFS(x)
+
+DFS(start)
+
+if visited==room_numbers:
+    print("true")
+else:
+    print("false")
+    
+    
+#number of provinces
+
+
+isConnected = [[1,1,0,0,0,0],[1,1,1,1,0,0],[0,1,1,0,0,0],[0,1,0,1,0,0],[0,0,0,0,1,1],[0,0,0,0,1,1]]
+
+               
+
+               
+               
+start=4
+visited=[]
+        
+def DFS(node):
+    if node not in visited: 
+        visited.append(node)
+        #print(node)
+        n=0
+        for x in isConnected[node]:
+            
+            if x==1:
+                DFS(n)
+            n=n+1
+
+l1=[]
+for x in range(0,6):
+    DFS(x)
+    l1.append(visited)
+    visited=[]
+    
+print(l1)
+
+
+
+for x in l1:
+    x.sort()
+    
+import numpy as np
+
+array = np.array(l1)
+unique = np.unique(array)
+num_values = len(unique)
+
+num_values
+
+
+# check if a singly linked list is cyclic
+
+
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+
+#creation       
+        
+n1=Node(4)
+n2=Node(1)
+n3=Node(5)
+n4=Node(6)
+n5=Node(1)
+
+
+n1.next=n2
+n2.next=n3
+n3.next=n4
+n4.next=n5
+n5.next=n3
+
+current=n1
+flag=0
+for i in range(0,10):
+    if current is None:
+        flag=1
+    current=current.next
+    
+if flag==1:
+    print("not cyclic")
+else:
+    print("cyclic")
+    
+ #intersection of 2 linked lists
+
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+
+#creation       
+        
+n1=Node(4)
+n2=Node(1)
+n3=Node(5)
+n4=Node(6)
+n5=Node(1)
+n6=Node(8)
+n7=Node(4)
+n8=Node(5)
+
+head1=n1
+n1.next=n2
+n2.next=n6
+
+head2=n3
+n3.next=n4
+n4.next=n5
+n5.next=n6
+
+n6.next=n7
+n7.next=n8
+
+
+
+def check(head1,head2):
+    current=head1
+    list1=[]
+    list2=[]
+
+    while current!=None:
+        list1.append(current)
+        current=current.next
+    
+    current=head2
+    while current!=None:
+        list2.append(current)
+        current=current.next
+    
+    s=set(list1) & set(list2)
+    if len(s)==0:
+        print("no intersection")
+    else:
+        print(list(s)[0].data)
+    
+check(head1,head2)
+    
+    
+ 
+
     
